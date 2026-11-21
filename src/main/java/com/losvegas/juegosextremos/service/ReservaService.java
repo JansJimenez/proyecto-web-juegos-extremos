@@ -232,45 +232,46 @@ public class ReservaService {
     }
 
     /**
-     * Construye el enlace https://wa.me/51953220851?text=... empleando URLEncoder.encode(mensaje, StandardCharsets.UTF_8)
-     * para garantizar compatibilidad total con emojis, tildes, S/ y saltos de línea en móvil y WhatsApp Web.
+     * Construye el enlace https://api.whatsapp.com/send?phone=51953220851&text=... empleando
+     * URLEncoder.encode(mensaje, StandardCharsets.UTF_8) para evitar la corrupción de emojis UTF-8
+     * que ocurre en redirecciones del acortador wa.me y garantizar compatibilidad total en móvil y WhatsApp Web.
      */
     public String construirEnlaceWhatsApp(Reserva reserva) {
         StringBuilder sb = new StringBuilder();
-        sb.append("¡Hola *Juegos Extremos Los Vegas*! 🎢🔥\n");
+        sb.append("\u00A1Hola *Juegos Extremos Los Vegas*! \uD83C\uDFA2\uD83D\uDD25\n");
         sb.append("Quiero confirmar mi pre-reserva web para visitar *Huayobamba (San Marcos)*:\n\n");
-        sb.append("📋 *Código:* ").append(reserva.getId()).append("\n");
-        sb.append("👤 *Cliente:* ").append(reserva.getNombreCliente()).append("\n");
-        sb.append("📱 *Contacto:* ").append(reserva.getTelefonoCliente()).append("\n");
-        sb.append("📍 *Procedencia:* ").append(reserva.getOrigenVisitante()).append("\n");
-        sb.append("📅 *Fecha de Visita:* ").append(reserva.getFechaVisita()).append("\n");
-        sb.append("⏰ *Turno:* ").append(reserva.getTurnoPreferido()).append("\n");
-        sb.append("👥 *N° de Personas:* ").append(reserva.getCantidadPersonas()).append("\n\n");
-        sb.append("🎯 *Juegos / Combos Elegidos:*\n");
+        sb.append("\uD83D\uDCCB *C\u00F3digo:* ").append(reserva.getId()).append("\n");
+        sb.append("\uD83D\uDC64 *Cliente:* ").append(reserva.getNombreCliente()).append("\n");
+        sb.append("\uD83D\uDCF1 *Contacto:* ").append(reserva.getTelefonoCliente()).append("\n");
+        sb.append("\uD83D\uDCCD *Procedencia:* ").append(reserva.getOrigenVisitante()).append("\n");
+        sb.append("\uD83D\uDCC5 *Fecha de Visita:* ").append(reserva.getFechaVisita()).append("\n");
+        sb.append("\u23F0 *Turno:* ").append(reserva.getTurnoPreferido()).append("\n");
+        sb.append("\uD83D\uDC65 *N\u00B0 de Personas:* ").append(reserva.getCantidadPersonas()).append("\n\n");
+        sb.append("\uD83C\uDFAF *Juegos / Combos Elegidos:*\n");
 
         for (ItemReserva item : reserva.getItemsSeleccionados()) {
             String precioStr = (item.getSubtotal() != null && item.getSubtotal() <= 0.0)
                     ? "GRATIS"
                     : "S/ " + String.format(Locale.US, "%.2f", item.getSubtotal());
-            sb.append("• ").append(item.getCantidad()).append("x ")
+            sb.append("\u2022 ").append(item.getCantidad()).append("x ")
                     .append(item.getNombre())
                     .append(" (").append(precioStr).append(")\n");
         }
 
-        sb.append("\n💰 *TOTAL ESTIMADO: S/ ")
+        sb.append("\n\uD83D\uDCB0 *TOTAL ESTIMADO: S/ ")
                 .append(String.format(Locale.US, "%.2f", reserva.getMontoTotalSoles()))
                 .append("*\n");
 
         if (reserva.getComentariosAdicionales() != null && !reserva.getComentariosAdicionales().isBlank()) {
-            sb.append("📝 *Nota:* ").append(reserva.getComentariosAdicionales()).append("\n");
+            sb.append("\uD83D\uDCDD *Nota:* ").append(reserva.getComentariosAdicionales()).append("\n");
         }
 
-        sb.append("\n¿Me confirman disponibilidad y datos para Yape/Plin o pago en boletería? ¡Gracias!");
+        sb.append("\n\u00BFMe confirman disponibilidad y datos para Yape/Plin o pago en boleter\u00EDa? \u00A1Gracias!");
 
         String encodedText = URLEncoder.encode(sb.toString(), StandardCharsets.UTF_8)
                 .replace("+", "%20");
 
-        return "https://wa.me/" + whatsappOficial + "?text=" + encodedText;
+        return "https://api.whatsapp.com/send?phone=" + whatsappOficial + "&text=" + encodedText;
     }
 
     private String generarCodigoReservaUnico() {

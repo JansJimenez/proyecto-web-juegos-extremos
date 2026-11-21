@@ -30,7 +30,7 @@ COPY --from=build /workspace/target/*.jar app.jar
 
 # Variables de entorno por defecto y optimización de memoria JVM (512MB RAM en Render)
 ENV PORT=8080
-ENV JAVA_OPTS="-XX:MaxRAMPercentage=75.0 -XX:+UseSerialGC -Djava.security.egd=file:/dev/./urandom"
+ENV JAVA_OPTS="-Dfile.encoding=UTF-8 -XX:MaxRAMPercentage=75.0 -XX:+UseSerialGC -Djava.security.egd=file:/dev/./urandom"
 
 EXPOSE 8080
 
