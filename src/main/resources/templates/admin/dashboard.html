@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Panel Administrador | Juegos Extremos "Los Vegas" (Huayobamba)</title>
+    <link rel="icon" type="image/jpeg" th:href="@{/images/logo-los-vegas.jpg}">
+
+    <!-- Meta tags CSRF para peticiones seguras -->
+    <meta name="_csrf" th:if="${_csrf != null}" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:if="${_csrf != null}" th:content="${_csrf.headerName}">
+
+    <!-- Google Fonts, FontAwesome 6 & Chart.js 4 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css(v='5.0')}">
+
+    <style>
+        body {
+            background-color: #faf7f2;
+            color: #161917;
+            padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px));
+        }
+
+        /* 1. Cabecera Admin Simétrica con Menú de 3 Rayitas (Laptop y Celular) */
+        .admin-header-bar {
+            background: #141a17;
+            color: #ffffff;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .admin-header-inner {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+        .admin-conn-pill {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.32rem 0.75rem;
+            border-radius: 999px;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .admin-conn-pill.cloud {
+            background: rgba(34, 197, 94, 0.18);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+            color: #86efac;
+        }
+        .admin-conn-pill.local {
+            background: rgba(246, 185, 59, 0.18);
+            border: 1px solid rgba(246, 185, 59, 0.5);
+            color: #fde68a;
+        }
+        .btn-admin-menu-toggle {
+            height: 40px;
+            padding: 0 0.95rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-admin-menu-toggle:hover,
+        .btn-admin-menu-toggle.active {
+            background: #f6b93b;
+            color: #141a17;
+            border-color: #f6b93b;
+        }
+        .admin-dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 1.15rem;
+            top: calc(100% + 10px);
+            width: calc(100% - 2.3rem);
+            max-width: 340px;
+            background: #ffffff;
+            color: #161917;
+            border: 1px solid #e4dccf;
+            border-radius: 22px;
+            padding: 0.85rem 1rem;
+            box-shadow: 0 22px 55px rgba(0, 0, 0, 0.28);
+            z-index: 1020;
+        }
+        .admin-dropdown-menu.open {
+            display: block;
+        }
+        .admin-dropdown-menu ul {
+            display: flex;
+            flex-direction: column;
+        }
+        .admin-dropdown-menu a,
+        .admin-dropdown-menu button.menu-logout-item {
+            width: 100%;
+            background: none;
+            border: none;
+            border-bottom: 1px solid rgba(22, 25, 23, 0.08);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #161917;
+            padding: 0.78rem 0.6rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-align: left;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .admin-dropdown-menu a:hover {
+            background: #f2ece1;
+            color: #c8281e;
+        }
+        .admin-dropdown-menu button.menu-logout-item {
+            color: #b91c1c;
+            border-bottom: none;
+        }
+        .admin-dropdown-menu button.menu-logout-item:hover {
+            background: #fef2f2;
+        }
+
+        /* Alerta Flash */
+        .flash-toast {
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            color: #065f46;
+            padding: 0.95rem 1.15rem;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 0.6rem;
+        }
+
+        /* 3. KPIs Simétricos (2x2 en celular, 4x1 en escritorio) */
+        .admin-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+        .kpi-card {
+            background: #ffffff;
+            border: 1px solid #e4dccf;
+            border-radius: 22px;
+            padding: 1.2rem 0.9rem;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .kpi-icon-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #f2ece1;
+            color: #c8281e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            margin-bottom: 0.55rem;
+        }
+        .kpi-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #767f79;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        .kpi-number {
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: #161917;
+            line-height: 1.1;
+        }
+        .kpi-sub {
+            font-size: 0.72rem;
+            color: #4a524d;
+            margin-top: 0.25rem;
+            font-weight: 600;
+        }
+
+        /* 4. Contenedores de Módulos y Gráficos */
+        .admin-module-box {
+            background: #ffffff;
+            border: 1px solid #e4dccf;
+            border-radius: 26px;
+            padding: 1.5rem 1.2rem;
+            margin-bottom: 1.6rem;
+            box-shadow: var(--shadow-soft);
+        }
+        .module-header {
+            text-align: center;
+            margin-bottom: 1.35rem;
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid rgba(22, 25, 23, 0.08);
+        }
+        .module-kicker {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #c8281e;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        .module-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #161917;
+            line-height: 1.15;
+        }
+
+        /* Grilla de Gráficos (Chart.js) */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+        .chart-card {
+            background: #faf7f2;
+            border: 1px solid #e4dccf;
+            border-radius: 20px;
+            padding: 1.2rem 1rem;
+            text-align: center;
+        }
+        .chart-card-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #161917;
+            margin-bottom: 0.25rem;
+        }
+        .chart-card-sub {
+            font-size: 0.76rem;
+            color: #767f79;
+            margin-bottom: 0.9rem;
+        }
+        .chart-canvas-wrap {
+            position: relative;
+            height: 230px;
+            width: 100%;
+        }
+
+        /* Botones de Clima en 1 Clic */
+        .climate-quick-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.35rem;
+        }
+        .btn-climate-quick {
+            width: 100%;
+            border-radius: 16px;
+            padding: 0.95rem 1rem;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            border: 2px solid #e4dccf;
+            background: #faf7f2;
+            color: #161917;
+            transition: all 0.2s ease;
+        }
+        .btn-climate-sunny.active-state {
+            background: #ecfdf5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+        .btn-climate-cloudy.active-state {
+            background: #fffbeb;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+        .btn-climate-rain.active-state {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        /* 5. Tarjetas Simétricas para Reservas, Atracciones y Combos */
+        .admin-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        .admin-item-card {
+            background: #faf7f2;
+            border: 1px solid #e4dccf;
+            border-radius: 20px;
+            padding: 1.2rem 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+        .admin-item-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            padding-bottom: 0.65rem;
+            border-bottom: 1px solid rgba(22, 25, 23, 0.08);
+        }
+        .badge-status {
+            display: inline-block;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+        .status-PENDIENTE_WHATSAPP {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+        .status-CONFIRMADA {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        .status-COMPLETADA {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+        .status-CANCELADA {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        .res-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.55rem;
+            background: #ffffff;
+            border: 1px solid #e4dccf;
+            border-radius: 14px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .res-meta-cell span {
+            display: block;
+            font-size: 0.68rem;
+            color: #767f79;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .res-meta-cell strong {
+            font-size: 0.84rem;
+            color: #161917;
+        }
+        .card-actions-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+        .btn-card-action {
+            width: 100%;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid #e4dccf;
+            background: #ffffff;
+            color: #161917;
+            font-family: var(--font-sans);
+            font-size: 0.76rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            cursor: pointer;
+        }
+        .btn-card-action.danger {
+            color: #b91c1c;
+            border-color: #fecaca;
+            background: #fef2f2;
+        }
+        .crud-split-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.4rem;
+        }
+        .admin-form-box {
+            background: #faf7f2;
+            border: 1px solid #e4dccf;
+            border-radius: 22px;
+            padding: 1.35rem 1.15rem;
+        }
+
+        @media (min-width: 640px) {
+            .admin-header-inner {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .admin-actions-row {
+                display: flex;
+                gap: 0.65rem;
+            }
+            .btn-admin-top {
+                width: auto;
+                padding: 0 1.1rem;
+            }
+            .admin-quick-nav {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .climate-quick-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .admin-kpi-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .charts-grid {
+                grid-template-columns: 1.15fr 0.85fr;
+            }
+            .admin-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .crud-split-grid {
+                grid-template-columns: 1.15fr 0.85fr;
+                align-items: start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================================================================
+         1. CABECERA SIMÉTRICA CON MENÚ DE TRES RAYITAS (LAPTOP Y CELULAR)
+         ====================================================================== -->
+    <header class="admin-header-bar">
+        <div class="container admin-header-inner">
+            <div class="brand-identity">
+                <img th:src="@{/images/logo-los-vegas.jpg}" alt="Logo Juegos Extremos Los Vegas" class="brand-avatar">
+                <div>
+                    <span class="brand-name-main" style="color: #ffffff;">Panel Los Vegas</span>
+                    <span class="brand-name-loc" style="color: #f6b93b;">Huayobamba</span>
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.55rem;">
+                <span th:if="${firebaseConectado}" class="admin-conn-pill cloud">
+                    <i class="fa-solid fa-cloud"></i> Firestore
+                </span>
+                <span th:unless="${firebaseConectado}" class="admin-conn-pill local">
+                    <i class="fa-solid fa-database"></i> Local
+                </span>
+
+                <button type="button" id="adminMenuToggle" class="btn-admin-menu-toggle" aria-expanded="false" aria-label="Abrir menú del panel">
+                    <i class="fa-solid fa-bars" id="adminMenuIcon"></i>
+                    <span>Menú</span>
+                </button>
+            </div>
+
+            <!-- Menú Desplegable de las 3 Rayitas -->
+            <nav id="adminDropdownMenu" class="admin-dropdown-menu" aria-label="Menú del Panel Administrador">
+                <ul>
+                    <li>
+                        <a href="#seccion-graficos"><i class="fa-solid fa-chart-pie" style="color: #e59819; width: 20px;"></i> Gráficos e Ingresos</a>
+                    </li>
+                    <li>
+                        <a href="#seccion-clima"><i class="fa-solid fa-sun" style="color: #10b981; width: 20px;"></i> Estado del Clima en Vivo</a>
+                    </li>
+                    <li>
+                        <a href="#seccion-reservas"><i class="fa-solid fa-calendar-check" style="color: #0e6ba8; width: 20px;"></i> Gestión de Pre-Reservas</a>
+                    </li>
+                    <li>
+                        <a href="#seccion-juegos"><i class="fa-solid fa-volleyball" style="color: #c8281e; width: 20px;"></i> Administrar Atracciones</a>
+                    </li>
+                    <li>
+                        <a href="#seccion-combos"><i class="fa-solid fa-ticket" style="color: #1b6b4a; width: 20px;"></i> Administrar Pases y Combos</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/}" target="_blank"><i class="fa-solid fa-up-right-from-square" style="color: #4a524d; width: 20px;"></i> Ver Página Web Pública</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/logout}" style="color: #b91c1c; border-bottom: none;">
+                            <i class="fa-solid fa-power-off" style="color: #b91c1c; width: 20px;"></i>
+                            <span>Cerrar Sesión</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 1.35rem;">
+
+        <!-- Alerta de Confirmación (Flash Attribute) -->
+        <div th:if="${mensajeExito}" class="flash-toast">
+            <i class="fa-solid fa-circle-check fa-lg"></i>
+            <span th:text="${mensajeExito}">Acción realizada con éxito.</span>
+        </div>
+
+        <!-- ==================================================================
+             2. TARJETAS SIMÉTRICAS DE KPIs OPERATIVOS (2x2 EN CELULAR)
+             ================================================================== -->
+        <section class="admin-kpi-grid" aria-label="Indicadores Clave">
+            <div class="kpi-card">
+                <div class="kpi-icon-circle"><i class="fa-solid fa-clipboard-list"></i></div>
+                <span class="kpi-label">Total Reservas</span>
+                <span class="kpi-number" th:text="${totalReservas}">0</span>
+                <span class="kpi-sub" th:text="${reservasPendientes} + ' por confirmar'">0 por confirmar</span>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon-circle" style="color: #0e6ba8;"><i class="fa-solid fa-users"></i></div>
+                <span class="kpi-label">Visitantes</span>
+                <span class="kpi-number" th:text="${visitantesEsperados}">0</span>
+                <span class="kpi-sub">Personas agendadas</span>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon-circle" style="color: #e59819;"><i class="fa-solid fa-coins"></i></div>
+                <span class="kpi-label">Ingreso Estimado</span>
+                <span class="kpi-number" style="color: #c8281e;"
+                      th:text="'S/ ' + ${#numbers.formatDecimal(ingresosEstimadosSoles, 1, 2)}">S/ 0.00</span>
+                <span class="kpi-sub">Proyección activa</span>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon-circle" style="color: #1b6b4a;"><i class="fa-solid fa-circle-check"></i></div>
+                <span class="kpi-label">Confirmado</span>
+                <span class="kpi-number" style="color: #1b6b4a;"
+                      th:text="'S/ ' + ${#numbers.formatDecimal(ingresosConfirmadosSoles, 1, 2)}">S/ 0.00</span>
+                <span class="kpi-sub">Ventas aseguradas</span>
+            </div>
+        </section>
+
+        <!-- ==================================================================
+             3. PANEL VISUAL DE GRÁFICOS DE INGRESOS Y RESERVAS (CHART.JS)
+             ================================================================== -->
+        <section id="seccion-graficos" class="admin-module-box">
+            <div class="module-header">
+                <span class="module-kicker">Estadísticas en Tiempo Real</span>
+                <h2 class="module-title">Visualización de Ingresos y Reservas</h2>
+            </div>
+
+            <div class="charts-grid"
+                 id="chartsDataContainer"
+                 th:data-estimado="${ingresosEstimadosSoles}"
+                 th:data-confirmado="${ingresosConfirmadosSoles}"
+                 th:data-pendiente="${ingresosPendientesSoles}"
+                 th:data-res-pendientes="${reservasPendientes}"
+                 th:data-res-confirmadas="${reservasConfirmadas}"
+                 th:data-res-completadas="${reservasCompletadas}"
+                 th:data-res-canceladas="${reservasCanceladas}">
+
+                <!-- Gráfico 1: Barras de Ingresos en Soles (S/) -->
+                <div class="chart-card">
+                    <h3 class="chart-card-title">Balance de Ingresos en Soles (S/)</h3>
+                    <p class="chart-card-sub">Comparativa entre ingresos proyectados, confirmados y por confirmar</p>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="revenueBarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfico 2: Donut de Estado de Reservas -->
+                <div class="chart-card">
+                    <h3 class="chart-card-title">Distribución de Reservas</h3>
+                    <p class="chart-card-sub">Estado actual de las solicitudes recibidas por WhatsApp</p>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="reservationsDoughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================================
+             4. MÓDULO DE CLIMA Y ESTADO DEL PARQUE EN 1 CLIC
+             ================================================================== -->
+        <section id="seccion-clima" class="admin-module-box">
+            <div class="module-header">
+                <span class="module-kicker">Control en Vivo &bull; Huayobamba</span>
+                <h2 class="module-title">Estado del Clima y Banner Web (1 Clic)</h2>
+                <p style="font-size: 0.78rem; color: #767f79; margin-top: 0.25rem;" th:text="${configParque.ultimaActualizacion}">Actualizado hoy</p>
+            </div>
+
+            <div class="climate-quick-grid">
+                <form th:action="@{/admin/clima/rapido}" method="post">
+                    <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <input type="hidden" name="estadoOperativo" value="ABIERTO_SOLEADO" />
+                    <button type="submit" class="btn-climate-quick btn-climate-sunny"
+                            th:classappend="${configParque.estadoOperativo == 'ABIERTO_SOLEADO' ? 'active-state' : ''}">
+                        <i class="fa-solid fa-sun" style="color: #10b981;"></i>
+                        <span>Soleado / Clima Ideal</span>
+                    </button>
+                </form>
+
+                <form th:action="@{/admin/clima/rapido}" method="post">
+                    <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <input type="hidden" name="estadoOperativo" value="ABIERTO_NUBLADO" />
+                    <button type="submit" class="btn-climate-quick btn-climate-cloudy"
+                            th:classappend="${configParque.estadoOperativo == 'ABIERTO_NUBLADO' ? 'active-state' : ''}">
+                        <i class="fa-solid fa-cloud-sun" style="color: #f59e0b;"></i>
+                        <span>Nublado / Operativo</span>
+                    </button>
+                </form>
+
+                <form th:action="@{/admin/clima/rapido}" method="post">
+                    <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <input type="hidden" name="estadoOperativo" value="SUSPENDIDO_LLUVIA" />
+                    <button type="submit" class="btn-climate-quick btn-climate-rain"
+                            th:classappend="${configParque.estadoOperativo == 'SUSPENDIDO_LLUVIA' ? 'active-state' : ''}">
+                        <i class="fa-solid fa-cloud-showers-heavy" style="color: #ef4444;"></i>
+                        <span>Suspendido por Lluvia</span>
+                    </button>
+                </form>
+            </div>
+
+            <form th:action="@{/admin/clima/personalizado}" method="post" class="admin-form-box">
+                <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <input type="hidden" name="estadoOperativo" th:value="${configParque.estadoOperativo}" />
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="mensajeBanner">Mensaje en Vivo en la Barra Superior</label>
+                        <input type="text" id="mensajeBanner" name="mensajeBanner" class="form-control"
+                               th:value="${configParque.mensajeBanner}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="temperaturaActual">Etiqueta de Clima Visible</label>
+                        <input type="text" id="temperaturaActual" name="temperaturaActual" class="form-control"
+                               th:value="${configParque.temperaturaActual}" placeholder="Ej. Clima Soleado Ideal">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="horarioAtencion">Horario de Atención</label>
+                        <input type="text" id="horarioAtencion" name="horarioAtencion" class="form-control"
+                               th:value="${configParque.horarioAtencion}" placeholder="10:30 AM a 6:30 PM">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="textoPromoFinDeSemana">Texto Promocional</label>
+                        <input type="text" id="textoPromoFinDeSemana" name="textoPromoFinDeSemana" class="form-control"
+                               th:value="${configParque.textoPromoFinDeSemana}">
+                    </div>
+                </div>
+
+                <div style="margin-top: 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem;">
+                    <label style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 700; cursor: pointer;">
+                        <input type="checkbox" name="promoFinDeSemanaActiva" value="true"
+                               th:checked="${configParque.promoFinDeSemanaActiva}"
+                               style="width: 18px; height: 18px; accent-color: #c8281e;">
+                        <span>Activar aviso promocional</span>
+                    </label>
+                    <button type="submit" class="btn-editorial-primary" style="width: 100%; max-width: 360px;">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>Guardar Cambios del Clima y Horario</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- ==================================================================
+             5. GESTIÓN SIMÉTRICA DE RESERVAS RECIBIDAS (TARJETAS EJECUTIVAS)
+             ================================================================== -->
+        <section id="seccion-reservas" class="admin-module-box">
+            <div class="module-header">
+                <span class="module-kicker">Clientes y Solicitudes</span>
+                <h2 class="module-title">Gestión de Pre-Reservas Recibidas</h2>
+            </div>
+
+            <div th:if="${#lists.isEmpty(reservas)}" class="empty-cart-box">
+                <i class="fa-regular fa-calendar-check fa-2x" style="color: #e59819; margin-bottom: 0.5rem;"></i>
+                <p>Aún no hay pre-reservas registradas. Cuando un visitante reserve desde la web, aparecerá aquí al instante.</p>
+            </div>
+
+            <div class="admin-cards-grid" th:unless="${#lists.isEmpty(reservas)}">
+                <article class="admin-item-card" th:each="res : ${reservas}">
+                    <div class="admin-item-top">
+                        <strong style="font-size: 0.92rem; color: #c8281e;" th:text="${res.id}">LV-20261117-001</strong>
+                        <span class="badge-status"
+                              th:classappend="'status-' + ${res.estado}"
+                              th:text="${res.estado}">PENDIENTE_WHATSAPP</span>
+                    </div>
+
+                    <div class="res-meta-grid">
+                        <div class="res-meta-cell">
+                            <span>Cliente</span>
+                            <strong th:text="${res.nombreCliente}">Nombre</strong>
+                        </div>
+                        <div class="res-meta-cell">
+                            <span>Celular</span>
+                            <strong th:text="${res.telefonoCliente}">999999999</strong>
+                        </div>
+                        <div class="res-meta-cell">
+                            <span>Fecha Visita</span>
+                            <strong th:text="${res.fechaVisita}">2026-11-20</strong>
+                        </div>
+                        <div class="res-meta-cell">
+                            <span>Grupo</span>
+                            <strong th:text="${res.cantidadPersonas} + ' personas'">2 personas</strong>
+                        </div>
+                    </div>
+
+                    <div style="background: #ffffff; border: 1px solid #e4dccf; border-radius: 12px; padding: 0.7rem 0.85rem;">
+                        <span style="font-size: 0.72rem; font-weight: 700; color: #767f79; text-transform: uppercase; display: block; margin-bottom: 0.3rem;">
+                            Atracciones / Combos elegidos:
+                        </span>
+                        <ul style="font-size: 0.82rem; color: #161917; font-weight: 600;">
+                            <li th:each="it : ${res.itemsSeleccionados}"
+                                th:text="'• ' + ${it.cantidad} + 'x ' + ${it.nombre} + (${it.subtotal <= 0} ? ' (GRATIS)' : ' (S/ ' + ${#numbers.formatDecimal(it.subtotal, 1, 2)} + ')')">
+                                1x Atracción
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.2rem 0.25rem;">
+                        <span style="font-size: 0.8rem; font-weight: 700; color: #4a524d;">Total de la Reserva:</span>
+                        <strong style="font-size: 1.4rem; font-weight: 800; color: #1b6b4a;"
+                                th:text="'S/ ' + ${#numbers.formatDecimal(res.montoTotalSoles, 1, 2)}">S/ 0.00</strong>
+                    </div>
+
+                    <form th:action="@{/admin/reservas/{id}/estado(id=${res.id})}" method="post"
+                          style="display: grid; grid-template-columns: 1fr auto; gap: 0.5rem;">
+                        <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <select name="estado" class="form-control" style="padding: 0.55rem 0.75rem; font-size: 0.84rem;">
+                            <option value="PENDIENTE_WHATSAPP" th:selected="${res.estado == 'PENDIENTE_WHATSAPP'}">Pendiente WhatsApp</option>
+                            <option value="CONFIRMADA" th:selected="${res.estado == 'CONFIRMADA'}">Confirmada</option>
+                            <option value="COMPLETADA" th:selected="${res.estado == 'COMPLETADA'}">Completada</option>
+                            <option value="CANCELADA" th:selected="${res.estado == 'CANCELADA'}">Cancelada</option>
+                        </select>
+                        <button type="submit" class="btn-exp-select" style="padding: 0 1.1rem;">
+                            Guardar
+                        </button>
+                    </form>
+
+                    <a th:href="'https://wa.me/51' + ${#strings.replace(res.telefonoCliente, ' ', '')} + '?text=Hola%20' + ${res.nombreCliente} + ',%20te%20saludamos%20de%20Juegos%20Extremos%20Los%20Vegas%20(Huayobamba)%20para%20confirmar%20tu%20reserva%20' + ${res.id}"
+                       target="_blank" rel="noopener noreferrer"
+                       class="btn-submit-whatsapp" style="padding: 0.72rem 1rem; font-size: 0.84rem;">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>Contactar Cliente por WhatsApp</span>
+                    </a>
+                </article>
+            </div>
+        </section>
+
+        <!-- ==================================================================
+             6. ADMINISTRAR ATRACCIONES (PUENTE, TIROLESA Y CAMPO DE VOLEYBALL)
+             ================================================================== -->
+        <section id="seccion-juegos" class="admin-module-box">
+            <div class="module-header">
+                <span class="module-kicker">Catálogo del Parque</span>
+                <h2 class="module-title">Administrar Atracciones</h2>
+            </div>
+
+            <div class="crud-split-grid">
+                <!-- Tarjetas de Atracciones Existentes -->
+                <div class="admin-cards-grid" style="grid-template-columns: 1fr;">
+                    <div class="admin-item-card" th:each="atr : ${atracciones}">
+                        <div class="admin-item-top">
+                            <strong style="font-size: 1.05rem; color: #161917;" th:text="${atr.nombre}">Puente Extremo</strong>
+                            <span class="badge-status"
+                                  th:classappend="${atr.activo} ? 'status-CONFIRMADA' : 'status-CANCELADA'"
+                                  th:text="${atr.activo} ? 'ACTIVO' : 'PAUSADO'">ACTIVO</span>
+                        </div>
+
+                        <p style="font-size: 0.84rem; color: #4a524d;" th:text="${atr.descripcionCorta}">Descripción</p>
+
+                        <div style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #e4dccf; border-radius: 12px; padding: 0.6rem 0.9rem;">
+                            <span style="font-size: 0.78rem; color: #767f79; font-weight: 700;" th:text="'Nivel: ' + ${atr.nivelAdrenalina}">EXTREMO</span>
+                            <strong style="font-size: 1.15rem; color: #1b6b4a;"
+                                    th:text="${atr.precio <= 0 ? 'GRATIS (S/ 0.00)' : 'S/ ' + #numbers.formatDecimal(atr.precio, 1, 2)}">S/ 10.00</strong>
+                        </div>
+
+                        <div class="card-actions-3col">
+                            <form th:action="@{/admin/atracciones/{id}/toggle(id=${atr.id})}" method="post" style="margin: 0;">
+                                <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                <button type="submit" class="btn-card-action">
+                                    <i class="fa-solid fa-power-off"></i>
+                                    <span th:text="${atr.activo} ? 'Pausar' : 'Activar'">Pausar</span>
+                                </button>
+                            </form>
+
+                            <button type="button"
+                                    class="btn-card-action js-edit-atraccion"
+                                    th:data-id="${atr.id}"
+                                    th:data-nombre="${atr.nombre}"
+                                    th:data-desc="${atr.descripcionCorta}"
+                                    th:data-precio="${atr.precio}"
+                                    th:data-nivel="${atr.nivelAdrenalina}"
+                                    th:data-altura="${atr.alturaMetros}"
+                                    th:data-pesomin="${atr.pesoMinKg}"
+                                    th:data-pesomax="${atr.pesoMaxKg}"
+                                    th:data-edad="${atr.edadMinima}"
+                                    th:data-imagen="${atr.imagenUrl}"
+                                    th:data-orden="${atr.orden}">
+                                <i class="fa-solid fa-pen"></i>
+                                <span>Editar</span>
+                            </button>
+
+                            <form th:action="@{/admin/atracciones/{id}/eliminar(id=${atr.id})}" method="post"
+                                  style="margin: 0;"
+                                  onsubmit="return confirm('¿Seguro que deseas eliminar esta atracción?');">
+                                <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                <button type="submit" class="btn-card-action danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                    <span>Borrar</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario Crear / Editar Atracción -->
+                <div class="admin-form-box">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.9rem;">
+                        <h3 id="formAtraccionTitle" style="font-size: 1.15rem; font-weight: 800;">
+                            Agregar / Editar Atracción
+                        </h3>
+                        <button type="button" id="btnResetAtraccion" style="background: none; border: none; color: #c8281e; font-size: 0.78rem; font-weight: 700; cursor: pointer;">
+                            Limpiar
+                        </button>
+                    </div>
+
+                    <form th:action="@{/admin/atracciones/guardar}" method="post" id="formAtraccion">
+                        <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <input type="hidden" id="atrId" name="id" value="" />
+
+                        <div class="form-group" style="margin-bottom: 0.8rem;">
+                            <label for="atrNombre">Nombre de la Atracción *</label>
+                            <input type="text" id="atrNombre" name="nombre" class="form-control" placeholder="Ej. Puente Extremo 'Los Vegas'" required>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0.8rem;">
+                            <label for="atrDesc">Descripción Corta *</label>
+                            <input type="text" id="atrDesc" name="descripcionCorta" class="form-control" placeholder="Resumen para la tarjeta" required>
+                        </div>
+
+                        <div class="form-grid" style="margin-bottom: 0.8rem;">
+                            <div class="form-group">
+                                <label for="atrPrecio">Precio en S/ (0 = Gratis) *</label>
+                                <input type="number" step="0.50" min="0" id="atrPrecio" name="precio" class="form-control" value="10.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="atrNivel">Categoría *</label>
+                                <select id="atrNivel" name="nivelAdrenalina" class="form-control">
+                                    <option value="EXTREMO">EXTREMO</option>
+                                    <option value="ALTO">ALTO</option>
+                                    <option value="MEDIO">FAMILIAR / DEPORTE</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0.95rem;">
+                            <label for="atrImagen">Ruta o URL de Imagen</label>
+                            <input type="text" id="atrImagen" name="imagenUrl" class="form-control"
+                                   placeholder="/images/puente-extremo-portal.jpg">
+                        </div>
+
+                        <input type="hidden" id="atrAltura" name="alturaMetros" value="1" />
+                        <input type="hidden" id="atrEdad" name="edadMinima" value="7" />
+                        <input type="hidden" id="atrPesoMin" name="pesoMinKg" value="25" />
+                        <input type="hidden" id="atrPesoMax" name="pesoMaxKg" value="105" />
+                        <input type="hidden" id="atrOrden" name="orden" value="1" />
+                        <input type="hidden" name="activo" value="true" />
+
+                        <button type="submit" class="btn-editorial-primary" style="width: 100%;">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            <span>Guardar Atracción</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================================================================
+             7. ADMINISTRAR PAQUETES Y COMBOS PROMOCIONALES
+             ================================================================== -->
+        <section id="seccion-combos" class="admin-module-box">
+            <div class="module-header">
+                <span class="module-kicker">Promociones y Grupos</span>
+                <h2 class="module-title">Administrar Pases y Combos</h2>
+            </div>
+
+            <div class="crud-split-grid">
+                <div class="admin-cards-grid" style="grid-template-columns: 1fr;">
+                    <div class="admin-item-card" th:each="paq : ${paquetes}">
+                        <div class="admin-item-top">
+                            <strong style="font-size: 1.02rem; color: #161917;" th:text="${paq.nombre}">Combo</strong>
+                            <span class="badge-status"
+                                  th:classappend="${paq.activo} ? 'status-CONFIRMADA' : 'status-CANCELADA'"
+                                  th:text="${paq.activo} ? 'ACTIVO' : 'PAUSADO'">ACTIVO</span>
+                        </div>
+
+                        <p style="font-size: 0.82rem; color: #4a524d;"
+                           th:text="${#strings.listJoin(paq.atraccionesIncluidasNombres, ' • ')}">Incluye</p>
+
+                        <div style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #e4dccf; border-radius: 12px; padding: 0.6rem 0.9rem;">
+                            <span style="font-size: 0.78rem; color: #767f79; text-decoration: line-through;"
+                                  th:text="'Normal: S/ ' + ${#numbers.formatDecimal(paq.precioRegularTotal, 1, 2)}">Normal</span>
+                            <strong style="font-size: 1.15rem; color: #c8281e;"
+                                    th:text="'Oferta: S/ ' + ${#numbers.formatDecimal(paq.precioOferta, 1, 2)}">S/ 18.00</strong>
+                        </div>
+
+                        <div class="card-actions-3col">
+                            <form th:action="@{/admin/paquetes/{id}/toggle(id=${paq.id})}" method="post" style="margin: 0;">
+                                <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                <button type="submit" class="btn-card-action">
+                                    <i class="fa-solid fa-power-off"></i>
+                                    <span th:text="${paq.activo} ? 'Pausar' : 'Activar'">Pausar</span>
+                                </button>
+                            </form>
+
+                            <button type="button"
+                                    class="btn-card-action js-edit-paquete"
+                                    th:data-id="${paq.id}"
+                                    th:data-nombre="${paq.nombre}"
+                                    th:data-desc="${paq.descripcion}"
+                                    th:data-juegos="${#strings.listJoin(paq.atraccionesIncluidasNombres, ', ')}"
+                                    th:data-regular="${paq.precioRegularTotal}"
+                                    th:data-oferta="${paq.precioOferta}"
+                                    th:data-minpersonas="${paq.minimoPersonas}"
+                                    th:data-etiqueta="${paq.etiquetaDestacada}">
+                                <i class="fa-solid fa-pen"></i>
+                                <span>Editar</span>
+                            </button>
+
+                            <form th:action="@{/admin/paquetes/{id}/eliminar(id=${paq.id})}" method="post"
+                                  style="margin: 0;"
+                                  onsubmit="return confirm('¿Seguro que deseas eliminar este combo?');">
+                                <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                <button type="submit" class="btn-card-action danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                    <span>Borrar</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario Crear / Editar Combo -->
+                <div class="admin-form-box">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.9rem;">
+                        <h3 id="formPaqueteTitle" style="font-size: 1.15rem; font-weight: 800;">
+                            Agregar / Editar Combo
+                        </h3>
+                        <button type="button" id="btnResetPaquete" style="background: none; border: none; color: #c8281e; font-size: 0.78rem; font-weight: 700; cursor: pointer;">
+                            Limpiar
+                        </button>
+                    </div>
+
+                    <form th:action="@{/admin/paquetes/guardar}" method="post" id="formPaquete">
+                        <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <input type="hidden" id="paqId" name="id" value="" />
+
+                        <div class="form-group" style="margin-bottom: 0.8rem;">
+                            <label for="paqNombre">Nombre del Combo *</label>
+                            <input type="text" id="paqNombre" name="nombre" class="form-control" placeholder="Ej. Combo Aventura Total" required>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0.8rem;">
+                            <label for="paqDesc">Descripción *</label>
+                            <input type="text" id="paqDesc" name="descripcion" class="form-control" placeholder="Detalle del combo" required>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0.8rem;">
+                            <label for="paqJuegos">Atracciones Incluidas (separadas por coma) *</label>
+                            <input type="text" id="paqJuegos" name="atraccionesTexto" class="form-control"
+                                   placeholder="Puente Extremo, Tirolesa Extrema, Campo de Voleyball Gratis" required>
+                        </div>
+
+                        <div class="form-grid" style="margin-bottom: 0.95rem;">
+                            <div class="form-group">
+                                <label for="paqRegular">Precio Normal (S/) *</label>
+                                <input type="number" step="0.50" id="paqRegular" name="precioRegularTotal" class="form-control" value="20.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="paqOferta">Precio Oferta (S/) *</label>
+                                <input type="number" step="0.50" id="paqOferta" name="precioOferta" class="form-control" value="18.00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="paqMinPersonas">Mín. Personas</label>
+                                <input type="number" min="1" id="paqMinPersonas" name="minimoPersonas" class="form-control" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="paqEtiqueta">Etiqueta</label>
+                                <input type="text" id="paqEtiqueta" name="etiquetaDestacada" class="form-control" value="PASE ESPECIAL">
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="activo" value="true" />
+
+                        <button type="submit" class="btn-editorial-primary" style="width: 100%;">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            <span>Guardar Combo Promocional</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Script de Gráficos Interactivos (Chart.js), Menú ☰ y Edición Rápida -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 0. Menú desplegable de 3 rayitas en el Panel Admin
+            const adminMenuToggle = document.getElementById('adminMenuToggle');
+            const adminDropdownMenu = document.getElementById('adminDropdownMenu');
+            const adminMenuIcon = document.getElementById('adminMenuIcon');
+
+            function cerrarMenuAdmin() {
+                if (!adminDropdownMenu || !adminMenuToggle) return;
+                adminDropdownMenu.classList.remove('open');
+                adminMenuToggle.classList.remove('active');
+                if (adminMenuIcon) adminMenuIcon.className = 'fa-solid fa-bars';
+            }
+
+            if (adminMenuToggle && adminDropdownMenu) {
+                adminMenuToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const abierto = adminDropdownMenu.classList.toggle('open');
+                    adminMenuToggle.classList.toggle('active', abierto);
+                    if (adminMenuIcon) {
+                        adminMenuIcon.className = abierto ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+                    }
+                });
+
+                adminDropdownMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => cerrarMenuAdmin());
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (adminDropdownMenu.classList.contains('open') &&
+                        !adminDropdownMenu.contains(e.target) &&
+                        !adminMenuToggle.contains(e.target)) {
+                        cerrarMenuAdmin();
+                    }
+                });
+            }
+
+            // 1. Inicializar Gráficos de Ingresos y Reservas
+            const container = document.getElementById('chartsDataContainer');
+            if (container && typeof Chart !== 'undefined') {
+                const estimado = parseFloat(container.getAttribute('data-estimado') || '0');
+                const confirmado = parseFloat(container.getAttribute('data-confirmado') || '0');
+                const pendiente = parseFloat(container.getAttribute('data-pendiente') || '0');
+
+                const resPendientes = parseInt(container.getAttribute('data-res-pendientes') || '0', 10);
+                const resConfirmadas = parseInt(container.getAttribute('data-res-confirmadas') || '0', 10);
+                const resCompletadas = parseInt(container.getAttribute('data-res-completadas') || '0', 10);
+                const resCanceladas = parseInt(container.getAttribute('data-res-canceladas') || '0', 10);
+
+                const ctxBar = document.getElementById('revenueBarChart');
+                if (ctxBar) {
+                    new Chart(ctxBar, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Total Proyectado', 'Confirmado', 'Por Confirmar'],
+                            datasets: [{
+                                label: 'Monto en Soles (S/)',
+                                data: [estimado, confirmado, pendiente],
+                                backgroundColor: ['#e59819', '#1b6b4a', '#0e6ba8'],
+                                borderRadius: 10,
+                                maxBarThickness: 52
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: (ctx) => ` S/ ${Number(ctx.raw).toFixed(2)}`
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: (val) => `S/ ${val}`
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                const ctxDonut = document.getElementById('reservationsDoughnutChart');
+                if (ctxDonut) {
+                    const totalRes = resPendientes + resConfirmadas + resCompletadas + resCanceladas;
+                    const dataValues = totalRes > 0
+                        ? [resPendientes, resConfirmadas, resCompletadas, resCanceladas]
+                        : [1, 0, 0, 0];
+                    const dataLabels = totalRes > 0
+                        ? ['Pendientes', 'Confirmadas', 'Completadas', 'Canceladas']
+                        : ['Sin reservas aún', 'Confirmadas', 'Completadas', 'Canceladas'];
+
+                    new Chart(ctxDonut, {
+                        type: 'doughnut',
+                        data: {
+                            labels: dataLabels,
+                            datasets: [{
+                                data: dataValues,
+                                backgroundColor: totalRes > 0
+                                    ? ['#f59e0b', '#10b981', '#0e6ba8', '#ef4444']
+                                    : ['#e4dccf', '#10b981', '#0e6ba8', '#ef4444'],
+                                borderWidth: 2,
+                                borderColor: '#faf7f2'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            cutout: '64%',
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        boxWidth: 12,
+                                        font: { family: 'Outfit', size: 12 }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            // 2. Cargar datos de Atracción en el formulario de edición
+            document.querySelectorAll('.js-edit-atraccion').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('atrId').value = btn.getAttribute('data-id') || '';
+                    document.getElementById('atrNombre').value = btn.getAttribute('data-nombre') || '';
+                    document.getElementById('atrDesc').value = btn.getAttribute('data-desc') || '';
+                    document.getElementById('atrPrecio').value = btn.getAttribute('data-precio') || '10';
+                    document.getElementById('atrNivel').value = btn.getAttribute('data-nivel') || 'EXTREMO';
+                    document.getElementById('atrImagen').value = btn.getAttribute('data-imagen') || '';
+                    document.getElementById('atrOrden').value = btn.getAttribute('data-orden') || '1';
+                    document.getElementById('formAtraccionTitle').textContent = 'Editando: ' + btn.getAttribute('data-nombre');
+                    document.getElementById('formAtraccion').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            const btnResetAtraccion = document.getElementById('btnResetAtraccion');
+            if (btnResetAtraccion) {
+                btnResetAtraccion.addEventListener('click', () => {
+                    document.getElementById('formAtraccion').reset();
+                    document.getElementById('atrId').value = '';
+                    document.getElementById('formAtraccionTitle').textContent = 'Agregar / Editar Atracción';
+                });
+            }
+
+            // 3. Cargar datos de Paquete en el formulario de edición
+            document.querySelectorAll('.js-edit-paquete').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('paqId').value = btn.getAttribute('data-id') || '';
+                    document.getElementById('paqNombre').value = btn.getAttribute('data-nombre') || '';
+                    document.getElementById('paqDesc').value = btn.getAttribute('data-desc') || '';
+                    document.getElementById('paqJuegos').value = btn.getAttribute('data-juegos') || '';
+                    document.getElementById('paqRegular').value = btn.getAttribute('data-regular') || '20';
+                    document.getElementById('paqOferta').value = btn.getAttribute('data-oferta') || '18';
+                    document.getElementById('paqMinPersonas').value = btn.getAttribute('data-minpersonas') || '1';
+                    document.getElementById('paqEtiqueta').value = btn.getAttribute('data-etiqueta') || 'PASE ESPECIAL';
+                    document.getElementById('formPaqueteTitle').textContent = 'Editando: ' + btn.getAttribute('data-nombre');
+                    document.getElementById('formPaquete').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            const btnResetPaquete = document.getElementById('btnResetPaquete');
+            if (btnResetPaquete) {
+                btnResetPaquete.addEventListener('click', () => {
+                    document.getElementById('formPaquete').reset();
+                    document.getElementById('paqId').value = '';
+                    document.getElementById('formPaqueteTitle').textContent = 'Agregar / Editar Combo';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

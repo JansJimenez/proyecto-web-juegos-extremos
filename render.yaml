@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: juegos-extremos-los-vegas
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: THYMELEAF_CACHE
+        value: "true"
+      - key: ADMIN_USER
+        value: admin
+      - key: ADMIN_PASS
+        sync: false
+      - key: FIREBASE_CONFIG_JSON
+        sync: false

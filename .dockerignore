@@ -1,0 +1,11 @@
+target/
+.git/
+.gitignore
+.vscode/
+.idea/
+*.iml
+**/firebase-key.json
+firebase-key.json
+.env
+*.env
+HELP.md

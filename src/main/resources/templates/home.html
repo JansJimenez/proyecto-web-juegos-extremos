@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Juegos Extremos "Los Vegas" | Huayobamba – San Marcos, Cajamarca</title>
+    <meta name="description" content="Donde el cielo de Huayobamba despierta tu valentía. Visita Juegos Extremos Los Vegas en el centro poblado de Huayobamba, Pedro Gálvez, San Marcos (Cajamarca). Puente Extremo, Tirolesa y Campo de Voleyball a S/ 10.00. Horario: 10:30 AM a 6:30 PM. WhatsApp: 953 220 851.">
+    <meta name="keywords" content="Juegos Extremos Los Vegas, Huayobamba, San Marcos Cajamarca, Pedro Gálvez, turismo de aventura Cajamarca, tirolesa San Marcos, puente extremo Huayobamba, campo de voleyball San Marcos">
+    <meta name="author" content="Juegos Extremos Los Vegas">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#141a17">
+    <link rel="canonical" href="https://juegos-extremos-los-vegas.onrender.com/">
+    <link rel="icon" type="image/jpeg" th:href="@{/images/logo-los-vegas.jpg}">
+    <link rel="apple-touch-icon" th:href="@{/images/logo-los-vegas.jpg}">
+
+    <!-- Geo Tags para SEO Local en San Marcos / Cajamarca -->
+    <meta name="geo.region" content="PE-CAJ">
+    <meta name="geo.placename" content="Huayobamba, San Marcos, Cajamarca, Perú">
+    <meta name="geo.position" content="-7.317752;-78.189475">
+    <meta name="ICBM" content="-7.317752, -78.189475">
+
+    <!-- OpenGraph para compartir en WhatsApp, Facebook e Instagram -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_PE">
+    <meta property="og:url" content="https://juegos-extremos-los-vegas.onrender.com/">
+    <meta property="og:site_name" content="Juegos Extremos Los Vegas">
+    <meta property="og:title" content="Juegos Extremos Los Vegas | Huayobamba – San Marcos, Cajamarca">
+    <meta property="og:description" content="Vive un día inolvidable en Huayobamba (San Marcos, Cajamarca). Puente Extremo, Tirolesa y Campo de Voleyball a S/ 10.00. Horario: 10:30 AM a 6:30 PM.">
+    <meta property="og:image" content="https://juegos-extremos-los-vegas.onrender.com/images/logo-los-vegas.jpg">
+    <meta property="og:image:alt" content="Logo Oficial Juegos Extremos Los Vegas - Huayobamba, San Marcos">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Juegos Extremos Los Vegas | Huayobamba - San Marcos, Cajamarca">
+    <meta name="twitter:description" content="¡Vive la aventura, siente la adrenalina! Puente Extremo, Tirolesa y Campo de Voleyball en Huayobamba, San Marcos.">
+    <meta name="twitter:image" content="https://juegos-extremos-los-vegas.onrender.com/images/logo-los-vegas.jpg">
+
+    <!-- Schema.org JSON-LD Oficial: LocalBusiness & TouristAttraction (100% válido en Google Rich Results Test) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://juegos-extremos-los-vegas.onrender.com/#localbusiness",
+      "additionalType": "https://schema.org/TouristAttraction",
+      "name": "Juegos Extremos Los Vegas",
+      "alternateName": "Juegos Extremos 'Los Vegas' Huayobamba",
+      "description": "Parque de atracciones de aventura extrema, deporte y naturaleza ubicado en el centro poblado de Huayobamba, distrito de Pedro Gálvez, provincia de San Marcos (Cajamarca, Perú). Cuenta con Puente Extremo, Tirolesa Extrema, Campo de Voleyball y Torre Mirador.",
+      "url": "https://juegos-extremos-los-vegas.onrender.com",
+      "telephone": "+51 953 220 851",
+      "priceRange": "S/ 10.00 - S/ 70.00",
+      "currenciesAccepted": "PEN",
+      "paymentAccepted": "Efectivo, Yape, Plin, Transferencia Bancaria",
+      "image": [
+        "https://juegos-extremos-los-vegas.onrender.com/images/logo-los-vegas.jpg",
+        "https://juegos-extremos-los-vegas.onrender.com/images/puente-extremo-portal.jpg",
+        "https://juegos-extremos-los-vegas.onrender.com/images/tirolesa-extrema.jpg",
+        "https://juegos-extremos-los-vegas.onrender.com/images/torre-mirador.jpg"
+      ],
+      "logo": "https://juegos-extremos-los-vegas.onrender.com/images/logo-los-vegas.jpg",
+      "hasMap": "https://maps.app.goo.gl/dSNxVNfeqGZo9h356",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Centro Poblado de Huayobamba, Distrito de Pedro Gálvez",
+        "addressLocality": "Huayobamba, San Marcos",
+        "addressRegion": "Cajamarca",
+        "postalCode": "06350",
+        "addressCountry": "PE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -7.317752,
+        "longitude": -78.189475
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+51-953-220-851",
+          "contactType": "customer service",
+          "areaServed": "PE",
+          "availableLanguage": "Spanish"
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+51-953-220-851",
+          "contactType": "reservations",
+          "areaServed": "PE",
+          "availableLanguage": "Spanish"
+        }
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "10:30",
+          "closes": "18:30"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google Fonts Editoriales: Outfit + Playfair Display (Italic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Hojas de estilo v6.0 (con menú desplegable ☰ tanto en laptop como en celular) -->
+    <link rel="stylesheet" th:href="@{/css/styles.css(v='6.0')}">
+</head>
+<body>
+
+    <!-- ======================================================================
+         1. BARRA SUPERIOR COMPACTA Y SIMÉTRICA (CENTRADA EN CELULAR)
+         ====================================================================== -->
+    <div class="top-editorial-bar">
+        <div class="container top-editorial-inner">
+            <div class="live-indicator-wrap">
+                <span class="pulse-dot"
+                      th:classappend="${configParque.colorIndicador == 'RED' ? 'red' : (configParque.colorIndicador == 'AMBER' ? 'amber' : 'green')}"></span>
+                <strong style="color: #fff;">Huayobamba en Vivo:</strong>
+                <span class="climate-chip">
+                    <i class="fa-solid fa-sun"></i>
+                    <span th:text="${configParque.temperaturaActual}">Clima Soleado Ideal</span>
+                </span>
+            </div>
+            <div class="top-schedule-row">
+                <span><i class="fa-regular fa-clock" style="color: var(--brand-gold-light);"></i> Horario: <strong style="color: #fff;" th:text="${configParque.horarioAtencion}">10:30 AM a 6:30 PM</strong></span>
+                <span>&bull;</span>
+                <span><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> <strong style="color: #fff;" th:text="${telefonoDisplay}">953 220 851</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         2. NAVBAR CÁPSULA SIMÉTRICA CON MENÚ DE TRES RAYITAS (LAPTOP Y CELULAR)
+         ====================================================================== -->
+    <header class="floating-header-wrap">
+        <div class="floating-navbar">
+            <a href="#inicio" class="brand-identity">
+                <img th:src="@{/images/logo-los-vegas.jpg}" alt="Logo Oficial Juegos Extremos Los Vegas" class="brand-avatar">
+                <div>
+                    <span class="brand-name-main">Los Vegas</span>
+                    <span class="brand-name-loc">Huayobamba</span>
+                </div>
+            </a>
+
+            <div class="header-cta-group">
+                <a href="#simulador" class="btn-pill-cart" aria-label="Ver mi reserva">
+                    <i class="fa-solid fa-ticket" style="color: var(--brand-red);"></i>
+                    <span class="cart-label-text">Mi Reserva</span>
+                    <span id="navCartCount" class="cart-count-circle">0</span>
+                </a>
+                <a th:href="'https://wa.me/' + ${whatsappOficial} + '?text=Hola%20Juegos%20Extremos%20Los%20Vegas,%20quiero%20visitar%20el%20parque%20en%20Huayobamba'"
+                   target="_blank" rel="noopener noreferrer" class="btn-pill-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span th:text="${telefonoDisplay}">953 220 851</span>
+                </a>
+                <button type="button" id="mobileMenuToggle" class="mobile-nav-btn" aria-expanded="false" aria-label="Abrir menú de opciones">
+                    <i class="fa-solid fa-bars" id="menuToggleIcon"></i>
+                    <span class="menu-btn-label">Menú</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú desplegable al hacer clic en las 3 rayitas (Tanto en Laptop como en Celular) -->
+        <nav id="mobileDrawer" class="mobile-menu-sheet" aria-label="Menú de Navegación">
+            <ul>
+                <li><a href="#inicio"><i class="fa-solid fa-house" style="color: var(--brand-gold); width: 20px;"></i> Inicio</a></li>
+                <li><a href="#juegos"><i class="fa-solid fa-bolt" style="color: var(--brand-red); width: 20px;"></i> Atracciones (Puente, Tirolesa y Voleyball)</a></li>
+                <li><a href="#galeria"><i class="fa-solid fa-camera-retro" style="color: var(--brand-gold); width: 20px;"></i> Fotos Reales del Parque por Dentro</a></li>
+                <li><a href="#combos"><i class="fa-solid fa-ticket" style="color: var(--brand-blue); width: 20px;"></i> Pases y Combos Promocionales</a></li>
+                <li><a href="#simulador"><i class="fa-solid fa-calendar-check" style="color: var(--brand-green); width: 20px;"></i> Simulador y Reserva por WhatsApp</a></li>
+                <li><a href="#ubicacion"><i class="fa-solid fa-location-dot" style="color: var(--brand-red); width: 20px;"></i> Ubicación y Cómo Llegar</a></li>
+                <li><a href="#seguridad"><i class="fa-solid fa-shield-heart" style="color: var(--brand-green); width: 20px;"></i> Seguridad y Preguntas Frecuentes</a></li>
+                <li><a th:href="@{/admin}"><i class="fa-solid fa-user-lock" style="color: var(--ink-body); width: 20px;"></i> Panel Administrador</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ======================================================================
+         3. HERO SIMÉTRICO Y CENTRADO EN CELULAR (ANDROID / IPHONE)
+         ====================================================================== -->
+    <section id="inicio" class="hero-editorial-wrapper">
+        <div class="hero-cinema-frame">
+            <div class="hero-bg-zoom" role="img" aria-label="Vista real del Puente Extremo en Huayobamba, San Marcos"></div>
+            <div class="hero-bg-overlay"></div>
+
+            <div class="hero-editorial-content">
+                <div class="reveal-on-scroll">
+                    <div class="hero-place-tag">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Huayobamba – San Marcos</span>
+                    </div>
+
+                    <h1 class="hero-editorial-title">
+                        Juegos Extremos Los Vegas
+                        <span class="gold-serif">en Huayobamba, San Marcos, Cajamarca.</span>
+                    </h1>
+
+                    <p class="hero-editorial-lead">
+                        Sal de la rutina y vive un día inolvidable. Cruza nuestro imponente <strong>Puente Extremo</strong> y vuela en la <strong>Tirolesa</strong> por solo <strong>S/ 10.00</strong>, y disfruta totalmente <strong>GRATIS</strong> de nuestro <strong>Campo de Voleyball</strong>.
+                    </p>
+
+                    <div class="hero-button-row">
+                        <a href="#simulador" class="btn-editorial-primary">
+                            <span>Reservar mi visita (S/ 10.00)</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#juegos" class="btn-editorial-outline">
+                            <i class="fa-solid fa-compass"></i>
+                            <span>Ver nuestras atracciones</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Simétrica de Emblema Oficial -->
+                <div class="hero-emblem-card reveal-on-scroll">
+                    <img th:src="@{/images/logo-los-vegas.jpg}"
+                         alt="Emblema Oficial Juegos Extremos Los Vegas"
+                         class="hero-emblem-logo">
+                    <p class="hero-emblem-quote">"¡Vive la aventura, siente la adrenalina!"</p>
+                    <p class="hero-emblem-sub">
+                        Horario de atención: <strong>10:30 AM a 6:30 PM</strong><br>
+                        A solo 10 minutos de la ciudad de San Marcos.
+                    </p>
+                    <div class="hero-mini-pillars">
+                        <span><i class="fa-solid fa-road-bridge" style="color: var(--brand-red);"></i> Puente S/ 10</span>
+                        <span><i class="fa-solid fa-wind" style="color: var(--brand-blue);"></i> Tirolesa S/ 10</span>
+                        <span><i class="fa-solid fa-volleyball" style="color: var(--brand-green);"></i> Voleyball Gratis</span>
+                        <span><i class="fa-solid fa-binoculars" style="color: var(--brand-gold);"></i> Torre Mirador</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         4. CINTA EDITORIAL EN MOVIMIENTO ("MARQUEE")
+         ====================================================================== -->
+    <div class="marquee-strip" aria-hidden="true">
+        <div class="marquee-track">
+            <span class="marquee-item"><i class="fa-solid fa-star"></i> Puente Extremo S/ 10.00</span>
+            <span class="marquee-item"><i class="fa-solid fa-wind"></i> Tirolesa Extrema S/ 10.00</span>
+            <span class="marquee-item"><i class="fa-solid fa-volleyball"></i> Campo de Voleyball GRATIS</span>
+            <span class="marquee-item"><i class="fa-solid fa-clock"></i> Horario: 10:30 AM a 6:30 PM</span>
+            <span class="marquee-item"><i class="fa-brands fa-whatsapp"></i> Reservas: 953 220 851</span>
+            <span class="marquee-item"><i class="fa-solid fa-location-dot"></i> Huayobamba – San Marcos</span>
+            <!-- Duplicado para scroll continuo -->
+            <span class="marquee-item"><i class="fa-solid fa-star"></i> Puente Extremo S/ 10.00</span>
+            <span class="marquee-item"><i class="fa-solid fa-wind"></i> Tirolesa Extrema S/ 10.00</span>
+            <span class="marquee-item"><i class="fa-solid fa-volleyball"></i> Campo de Voleyball GRATIS</span>
+            <span class="marquee-item"><i class="fa-solid fa-clock"></i> Horario: 10:30 AM a 6:30 PM</span>
+            <span class="marquee-item"><i class="fa-brands fa-whatsapp"></i> Reservas: 953 220 851</span>
+            <span class="marquee-item"><i class="fa-solid fa-location-dot"></i> Huayobamba – San Marcos</span>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         5. NUESTRAS ATRACCIONES SIMÉTRICAS (PUENTE, TIROLESA Y CAMPO DE VOLEYBALL)
+         ====================================================================== -->
+    <section id="juegos" class="editorial-section">
+        <div class="container">
+            <div class="editorial-header reveal-on-scroll">
+                <span class="editorial-kicker">Nuestras Atracciones &bull; Juegos a S/ 10.00</span>
+                <h2 class="editorial-heading">
+                    Juegos Extremos en San Marcos, Cajamarca: <span class="serif-italic">vive la adrenalina</span>
+                </h2>
+                <p class="editorial-subtitle">
+                    Vive la emoción del Puente Extremo y la Tirolesa a solo S/ 10.00, y disfruta gratis de nuestro Campo de Voleyball rodeado del paisaje de Huayobamba.
+                </p>
+            </div>
+
+            <div class="experiences-showcase">
+                <article class="experience-feature-card reveal-on-scroll"
+                         th:each="atraccion, iterStat : ${atracciones}">
+                    <div class="exp-photo-wrap">
+                        <img th:src="${atraccion.imagenUrl}"
+                             th:alt="${atraccion.nombre}"
+                             loading="lazy"
+                             onerror="this.onerror=null;this.src='/images/explanada-verde.jpg';">
+                        <span class="exp-index-number" th:text="'0' + ${iterStat.count}">01</span>
+                        <span class="exp-floating-tag">
+                            <i class="fa-solid" th:classappend="${atraccion.iconoBadge}"></i>
+                            <span th:text="${iterStat.index == 0 ? 'Aventura en Altura' : (iterStat.index == 1 ? 'Vuelo Panorámico' : 'Deporte Libre Gratis')}">Atracción</span>
+                        </span>
+                    </div>
+
+                    <div class="exp-content-body">
+                        <h3 class="exp-title" th:text="${atraccion.nombre}">Puente Extremo 'Los Vegas'</h3>
+                        <p class="exp-description" th:text="${atraccion.descripcionDetallada}">
+                            Descripción detallada de la experiencia en Huayobamba.
+                        </p>
+
+                        <div class="exp-highlights-row">
+                            <span class="exp-highlight-pill" th:each="equipo : ${atraccion.incluyeEquipo}">
+                                <i class="fa-solid fa-check"></i>
+                                <span th:text="${equipo}">Incluye</span>
+                            </span>
+                        </div>
+
+                        <div class="exp-bottom-bar">
+                            <div class="exp-price-tag">
+                                <span class="label" th:text="${atraccion.precio <= 0 ? 'Acceso para visitantes' : 'Precio oficial'}">Precio oficial</span>
+                                <span class="amount"
+                                      th:style="${atraccion.precio <= 0 ? 'color: var(--brand-green);' : ''}"
+                                      th:text="${atraccion.precio <= 0 ? 'GRATIS' : 'S/ ' + #numbers.formatDecimal(atraccion.precio, 1, 2)}">S/ 10.00</span>
+                            </div>
+
+                            <button type="button"
+                                    class="btn-exp-select js-add-to-cart"
+                                    th:data-id="${atraccion.id}"
+                                    th:data-nombre="${atraccion.nombre}"
+                                    th:data-precio="${atraccion.precio}"
+                                    th:data-tipo="'ATRACCION'"
+                                    th:data-ahorro="0"
+                                    th:data-min-personas="1">
+                                <span th:text="${atraccion.precio <= 0 ? 'Incluir Gratis' : 'Agregar'}">Agregar</span>
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         6. MOSAICO FOTOGRÁFICO SIMÉTRICO + VISOR LIGHTBOX (#galeria)
+         ====================================================================== -->
+    <section id="galeria" class="editorial-section bento-gallery-section">
+        <div class="container">
+            <div class="editorial-header reveal-on-scroll">
+                <span class="editorial-kicker">Fotografías del Lugar</span>
+                <h2 class="editorial-heading">
+                    Conoce Juegos Extremos Los Vegas en <span class="serif-italic">Huayobamba por dentro</span>
+                </h2>
+                <p class="editorial-subtitle">
+                    Toca cualquier imagen desde tu celular para verla en grande.
+                </p>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Foto 1 Destacada -->
+                <div class="bento-item bento-featured reveal-on-scroll js-lightbox-trigger"
+                     data-full="/images/puente-extremo-portal.jpg"
+                     data-caption="Portal artístico y recorrido completo del Puente Extremo en Huayobamba">
+                    <img th:src="@{/images/puente-extremo-portal.jpg}" alt="Portal artístico del Puente Extremo Los Vegas" loading="lazy">
+                    <div class="bento-overlay">
+                        <span class="bento-kicker">Atracción Emblemática &bull; S/ 10.00</span>
+                        <h3 class="bento-title">Portal Artístico y Puente Extremo sobre el valle</h3>
+                    </div>
+                </div>
+
+                <!-- Foto 2 -->
+                <div class="bento-item reveal-on-scroll js-lightbox-trigger"
+                     data-full="/images/aventurero-seguridad.jpg"
+                     data-caption="Visitante equipado con arnés, casco y guantes listo para la aventura">
+                    <img th:src="@{/images/aventurero-seguridad.jpg}" alt="Visitante equipado en el Puente Extremo" loading="lazy">
+                    <div class="bento-overlay">
+                        <span class="bento-kicker">Aventura Segura</span>
+                        <h3 class="bento-title">Equipamiento completo incluido</h3>
+                    </div>
+                </div>
+
+                <!-- Foto 3 -->
+                <div class="bento-item reveal-on-scroll js-lightbox-trigger"
+                     data-full="/images/puente-recorrido.jpg"
+                     data-caption="El Puente Extremo visto desde adentro paso a paso">
+                    <img th:src="@{/images/puente-recorrido.jpg}" alt="Vista interna del Puente Extremo" loading="lazy">
+                    <div class="bento-overlay">
+                        <span class="bento-kicker">Perspectiva Real</span>
+                        <h3 class="bento-title">El Puente Extremo por dentro</h3>
+                    </div>
+                </div>
+
+                <!-- Foto 4: Campo de Voleyball -->
+                <div class="bento-item reveal-on-scroll js-lightbox-trigger"
+                     data-full="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&w=1000&q=80"
+                     data-caption="Campo de Voleyball GRATIS para compartir partidos entre amigos y familia">
+                    <img src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&w=1000&q=80"
+                         alt="Campo de Voleyball en Juegos Extremos Los Vegas"
+                         loading="lazy"
+                         onerror="this.onerror=null;this.src='/images/explanada-verde.jpg';">
+                    <div class="bento-overlay">
+                        <span class="bento-kicker">Deporte y Amigos &bull; GRATIS</span>
+                        <h3 class="bento-title">Campo de Voleyball al aire libre</h3>
+                    </div>
+                </div>
+
+                <!-- Foto 5 -->
+                <div class="bento-item reveal-on-scroll js-lightbox-trigger"
+                     data-full="/images/torre-mirador.jpg"
+                     data-caption="Nuestra Torre Mirador de 3 niveles con la bandera del Perú">
+                    <img th:src="@{/images/torre-mirador.jpg}" alt="Torre Mirador de 3 pisos en Huayobamba" loading="lazy">
+                    <div class="bento-overlay">
+                        <span class="bento-kicker">Mirador 360°</span>
+                        <h3 class="bento-title">Torre Mirador de 3 niveles</h3>
+                    </div>
+                </div>
+
+                <!-- Foto 6 -->
+                <div class="bento-item reveal-on-scroll js-lightbox-trigger"
+                     data-full="/images/glorietas-mirador.jpg"
+                     data-caption="Glorietas campestres de descanso y vista a las montañas">
+                    <img th:src="@{/images/glorietas-mirador.jpg}" alt="Glorietas y explanada del parque" loading="lazy">
+                    <div class="bento-overlay">
+                        <span class="bento-kicker">Para Compartir</span>
+                        <h3 class="bento-title">Glorietas campestres de descanso</h3>
+                    </div>
+                </div>
+
+                <!-- Foto 7 -->
+                <div class="bento-item reveal-on-scroll js-lightbox-trigger"
+                     data-full="/images/spot-familiar.jpg"
+                     data-caption="Rincón fotográfico familiar con vista a la cordillera">
+                    <img th:src="@{/images/spot-familiar.jpg}" alt="Spot fotográfico familiar en Huayobamba" loading="lazy">
+                    <div class="bento-overlay">
+                        <span class="bento-kicker">Recuerdos en Familia</span>
+                        <h3 class="bento-title">Spots temáticos con vista al valle</h3>
+                    </div>
+                </div>
+
+                <!-- Foto 8 -->
+                <div class="bento-item reveal-on-scroll js-lightbox-trigger"
+                     data-full="/images/valle-huayobamba.jpg"
+                     data-caption="Impresionante vista panorámica del valle de San Marcos desde el parque">
+                    <img th:src="@{/images/valle-huayobamba.jpg}" alt="Valle de Huayobamba y San Marcos" loading="lazy">
+                    <div class="bento-overlay">
+                        <span class="bento-kicker">Paisaje Cajamarquino</span>
+                        <h3 class="bento-title">El valle de San Marcos a tus pies</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         7. PASES Y COMBOS PROMOCIONALES (#combos)
+         ====================================================================== -->
+    <section id="combos" class="dark-forest-section">
+        <div class="container">
+            <div class="editorial-header reveal-on-scroll">
+                <span class="editorial-kicker">Combos Especiales &bull; Puente + Tirolesa + Voleyball</span>
+                <h2 class="editorial-heading">
+                    Pases y combos en Huayobamba, San Marcos <span class="serif-italic" style="color: var(--brand-gold-light);">para disfrutar más</span>
+                </h2>
+                <p class="editorial-subtitle">
+                    Ven con tu pareja, tu grupo de amigos, tu familia o tu promoción escolar y vive todas las actividades ahorrando en tu entrada.
+                </p>
+            </div>
+
+            <div class="tickets-grid">
+                <article class="adventure-ticket-card reveal-on-scroll" th:each="paquete : ${paquetes}">
+                    <div class="ticket-top-row">
+                        <span class="ticket-badge" th:text="${paquete.etiquetaDestacada}">PASE ESPECIAL</span>
+                        <span class="ticket-save-tag"
+                              th:text="'Ahorras S/ ' + ${#numbers.formatDecimal(paquete.ahorroSoles, 1, 2)}">Ahorras S/ 5.00</span>
+                    </div>
+
+                    <h3 class="ticket-title" th:text="${paquete.nombre}">Combo Aventura Total</h3>
+                    <p class="ticket-desc" th:text="${paquete.descripcion}">Descripción del paquete.</p>
+
+                    <ul class="ticket-perks">
+                        <li th:each="nombreJuego : ${paquete.atraccionesIncluidasNombres}">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span th:text="${nombreJuego}">Atracción incluida</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-user-group"></i>
+                            <span th:text="'Sugerido desde: ' + ${paquete.minimoPersonas} + (${paquete.minimoPersonas == 1} ? ' persona' : ' personas')">Mínimo 1 persona</span>
+                        </li>
+                    </ul>
+
+                    <div class="ticket-Stub-divider"></div>
+
+                    <div class="ticket-footer">
+                        <div>
+                            <span class="ticket-old-price"
+                                  th:text="'Normal: S/ ' + ${#numbers.formatDecimal(paquete.precioRegularTotal, 1, 2)}">Normal: S/ 20.00</span>
+                            <span class="ticket-new-price"
+                                  th:text="'S/ ' + ${#numbers.formatDecimal(paquete.precioOferta, 1, 2)}">S/ 18.00</span>
+                        </div>
+
+                        <button type="button"
+                                class="btn-ticket-choose js-add-to-cart"
+                                th:data-id="${paquete.id}"
+                                th:data-nombre="${paquete.nombre}"
+                                th:data-precio="${paquete.precioOferta}"
+                                th:data-tipo="'PAQUETE'"
+                                th:data-ahorro="${paquete.ahorroSoles}"
+                                th:data-min-personas="${paquete.minimoPersonas}">
+                            <span>Elegir Pase</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         8. PLANIFICADOR / SIMULADOR MOBILE-FIRST CONECTADO AL 953 220 851
+         ====================================================================== -->
+    <section id="simulador" class="editorial-section">
+        <div class="container">
+            <div class="editorial-header reveal-on-scroll">
+                <span class="editorial-kicker">Reserva desde tu Celular</span>
+                <h2 class="editorial-heading">
+                    Calcula tu visita y <span class="serif-italic">agenda por WhatsApp</span>
+                </h2>
+                <p class="editorial-subtitle">
+                    Marca las atracciones que deseas realizar, elige tu fecha y envía tu pre-reserva lista al WhatsApp oficial <strong>953 220 851</strong>.
+                </p>
+            </div>
+
+            <div class="concierge-grid">
+                <!-- Columna 1: Selección de Experiencias -->
+                <div class="concierge-card reveal-on-scroll">
+                    <div class="concierge-step-header">
+                        <span class="concierge-step-num">1</span>
+                        <h3 class="concierge-step-title">Elige tus atracciones o combos</h3>
+                    </div>
+
+                    <div class="quick-picker-tabs">
+                        <button type="button" id="tabJuegosBtn" class="picker-tab-btn active">
+                            Atracciones (S/ 10.00)
+                        </button>
+                        <button type="button" id="tabCombosBtn" class="picker-tab-btn">
+                            Pases y Combos
+                        </button>
+                    </div>
+
+                    <!-- Lista rápida de Juegos -->
+                    <div id="quickListJuegos" class="quick-selector-list">
+                        <div class="quick-item-row" th:each="atraccion : ${atracciones}">
+                            <div class="quick-item-info">
+                                <strong th:text="${atraccion.nombre}">Puente Extremo</strong>
+                                <span th:style="${atraccion.precio <= 0 ? 'color: var(--brand-green);' : ''}"
+                                      th:text="${atraccion.precio <= 0 ? 'GRATIS (Incluido)' : 'S/ ' + #numbers.formatDecimal(atraccion.precio, 1, 2)}">S/ 10.00</span>
+                            </div>
+                            <button type="button"
+                                    class="btn-exp-select js-add-to-cart"
+                                    style="padding: 0.45rem 0.9rem; font-size: 0.8rem;"
+                                    th:data-id="${atraccion.id}"
+                                    th:data-nombre="${atraccion.nombre}"
+                                    th:data-precio="${atraccion.precio}"
+                                    th:data-tipo="'ATRACCION'"
+                                    th:data-ahorro="0"
+                                    th:data-min-personas="1">
+                                <i class="fa-solid fa-plus"></i> Sumar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Lista rápida de Combos -->
+                    <div id="quickListCombos" class="quick-selector-list" style="display: none;">
+                        <div class="quick-item-row" th:each="paquete : ${paquetes}">
+                            <div class="quick-item-info">
+                                <strong th:text="${paquete.nombre}">Combo Aventura Total</strong>
+                                <span th:text="'S/ ' + ${#numbers.formatDecimal(paquete.precioOferta, 1, 2)} + ' (Ahorras S/ ' + ${#numbers.formatDecimal(paquete.ahorroSoles, 1, 2)} + ')'">S/ 18.00</span>
+                            </div>
+                            <button type="button"
+                                    class="btn-exp-select js-add-to-cart"
+                                    style="padding: 0.45rem 0.9rem; font-size: 0.8rem;"
+                                    th:data-id="${paquete.id}"
+                                    th:data-nombre="${paquete.nombre}"
+                                    th:data-precio="${paquete.precioOferta}"
+                                    th:data-tipo="'PAQUETE'"
+                                    th:data-ahorro="${paquete.ahorroSoles}"
+                                    th:data-min-personas="${paquete.minimoPersonas}">
+                                <i class="fa-solid fa-plus"></i> Sumar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem;">
+                        <strong style="font-size: 0.85rem; color: var(--ink-body);">
+                            Tu selección actual:
+                        </strong>
+                        <button type="button" id="btnClearCart"
+                                style="display: none; background: none; border: none; color: var(--brand-red); font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+                            <i class="fa-regular fa-trash-can"></i> Vaciar
+                        </button>
+                    </div>
+
+                    <!-- Contenedor Dinámico del Carrito -->
+                    <div id="cartItemsContainer" class="cart-items-container">
+                        <div class="empty-cart-box">
+                            <i class="fa-regular fa-compass fa-2x" style="color: var(--brand-gold); margin-bottom: 0.45rem;"></i>
+                            <p>Toca <strong>"+ Sumar"</strong> en Puente Extremo, Tirolesa o Campo de Voleyball para calcular tu presupuesto.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ahorro acumulado por combos -->
+                    <div id="simuladorAhorroBox"
+                         style="display: none; background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 0.6rem 0.9rem; border-radius: 12px; font-size: 0.82rem; font-weight: 700; margin-bottom: 0.85rem;">
+                        <i class="fa-solid fa-check-double"></i> ¡Ahorras <span id="simuladorAhorroMonto">S/ 0.00</span> con tus combos elegidos!
+                    </div>
+
+                    <!-- Caja de Monto Total en Soles -->
+                    <div class="simulator-total-box">
+                        <div>
+                            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; display: block;">
+                                Total Estimado
+                            </span>
+                            <span style="font-size: 0.75rem; opacity: 0.72;">
+                                Pago en boletería o Yape / Plin
+                            </span>
+                        </div>
+                        <span id="simuladorTotalSoles" class="total-amount-display">S/ 0.00</span>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Datos del Visitante -->
+                <div class="concierge-card reveal-on-scroll">
+                    <div class="concierge-step-header">
+                        <span class="concierge-step-num">2</span>
+                        <h3 class="concierge-step-title">Completa tus datos de visita</h3>
+                    </div>
+
+                    <div id="simulatorAlert" class="simulator-alert" role="alert"></div>
+
+                    <form id="reservaForm" novalidate style="display: flex; flex-direction: column; flex-grow: 1;">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="nombreCliente">Tu Nombre y Apellido *</label>
+                                <input type="text" id="nombreCliente" name="nombreCliente" class="form-control"
+                                       placeholder="Ej. Carlos Rojas" autocomplete="name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="telefonoCliente">Tu Celular / WhatsApp *</label>
+                                <input type="tel" id="telefonoCliente" name="telefonoCliente" class="form-control"
+                                       placeholder="Ej. 987 654 321" inputmode="tel" autocomplete="tel" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fechaVisita">Fecha de Visita *</label>
+                                <input type="date" id="fechaVisita" name="fechaVisita" class="form-control"
+                                       th:min="${fechaMinima}" th:value="${fechaMinima}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="turnoPreferido">Horario de Visita (10:30 AM - 6:30 PM) *</label>
+                                <select id="turnoPreferido" name="turnoPreferido" class="form-control" required>
+                                    <option value="MAÑANA / MEDIODÍA (10:30 AM - 2:30 PM)">☀️ Mañana / Mediodía (10:30 AM - 2:30 PM)</option>
+                                    <option value="TARDE / ATARDECER (2:30 PM - 6:30 PM)">🌤️ Tarde / Atardecer (2:30 PM - 6:30 PM)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cantidadPersonas">Cantidad de Personas *</label>
+                                <input type="number" id="cantidadPersonas" name="cantidadPersonas" class="form-control"
+                                       min="1" max="150" value="2" inputmode="numeric" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="origenVisitante">¿Desde dónde nos visitas?</label>
+                                <select id="origenVisitante" name="origenVisitante" class="form-control">
+                                    <option value="San Marcos (Pedro Gálvez)">San Marcos (Pedro Gálvez)</option>
+                                    <option value="Cajamarca Ciudad">Cajamarca Ciudad</option>
+                                    <option value="Cajabamba">Cajabamba</option>
+                                    <option value="Celendín / Chota">Celendín / Chota</option>
+                                    <option value="Trujillo / Costa Norte">Trujillo / Costa Norte</option>
+                                    <option value="Lima / Otro destino">Lima / Otro destino</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 0.9rem;">
+                            <label for="comentariosAdicionales">Nota adicional (Opcional)</label>
+                            <input type="text" id="comentariosAdicionales" name="comentariosAdicionales" class="form-control"
+                                   placeholder="Ej. Vamos a jugar voleyball en grupo / Cumpleaños / Paseo familiar">
+                        </div>
+
+                        <div style="margin-top: auto; padding-top: 1.25rem;">
+                            <button type="submit" id="btnSubmitReserva" class="btn-submit-whatsapp">
+                                <i class="fa-brands fa-whatsapp fa-lg"></i>
+                                <span>Confirmar y Enviar al 953 220 851</span>
+                            </button>
+
+                            <p style="text-align: center; font-size: 0.76rem; color: var(--ink-muted); margin-top: 0.65rem;">
+                                Se generará tu código de reserva y se abrirá WhatsApp automáticamente en tu celular.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         9. UBICACIÓN Y RUTA EXACTA EN GOOGLE MAPS (#ubicacion)
+         ====================================================================== -->
+    <section id="ubicacion" class="editorial-section bento-gallery-section">
+        <div class="container">
+            <div class="editorial-header reveal-on-scroll">
+                <span class="editorial-kicker">Ubicación y Acceso</span>
+                <h2 class="editorial-heading">
+                    ¿Cómo llegar a Juegos Extremos Los Vegas en <span class="serif-italic">Huayobamba, San Marcos, Cajamarca?</span>
+                </h2>
+                <p class="editorial-subtitle">
+                    Te esperamos todos los días de <strong>10:30 AM a 6:30 PM</strong> en el <strong>Centro Poblado de Huayobamba</strong>, distrito de Pedro Gálvez, provincia de San Marcos (Cajamarca).
+                </p>
+            </div>
+
+            <div class="route-grid">
+                <div class="route-card reveal-on-scroll">
+                    <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.3rem; text-align: center;">
+                        Referencias de Viaje
+                    </h3>
+                    <p style="font-size: 0.9rem; color: var(--ink-body); text-align: center;">
+                        Acceso directo para autos, camionetas, motos y movilidad local:
+                    </p>
+
+                    <div class="editorial-steps-list">
+                        <div class="editorial-step-item">
+                            <span class="step-badge-circle">1</span>
+                            <div>
+                                <strong style="display: block; font-size: 0.96rem;">Desde Cajamarca Ciudad (~1 h 15 min)</strong>
+                                <p style="font-size: 0.86rem; color: var(--ink-body);">
+                                    Carretera asfaltada hacia el sur pasando por Namora y Matara hasta llegar a San Marcos.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="editorial-step-item">
+                            <span class="step-badge-circle">2</span>
+                            <div>
+                                <strong style="display: block; font-size: 0.96rem;">Desde la Plaza de San Marcos (~10 min)</strong>
+                                <p style="font-size: 0.86rem; color: var(--ink-body);">
+                                    Dirígete hacia el valle del <strong>Centro Poblado de Huayobamba</strong> en auto propio, moto o mototaxi.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="editorial-step-item">
+                            <span class="step-badge-circle">3</span>
+                            <div>
+                                <strong style="display: block; font-size: 0.96rem;">Juegos Extremos "Los Vegas"</strong>
+                                <p style="font-size: 0.86rem; color: var(--ink-body);">
+                                    Verás nuestra Torre Mirador de 3 niveles con la bandera del Perú, el Campo de Voleyball y amplio estacionamiento gratuito.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: auto;">
+                        <a href="https://maps.app.goo.gl/dSNxVNfeqGZo9h356"
+                           target="_blank" rel="noopener noreferrer" class="btn-editorial-primary" style="width: 100%;">
+                            <i class="fa-solid fa-location-arrow"></i>
+                            <span>Abrir Ubicación en Google Maps</span>
+                        </a>
+                        <a th:href="'https://wa.me/' + ${whatsappOficial} + '?text=Hola%20Los%20Vegas,%20estoy%20en%20camino%20a%20Huayobamba,%20%C2%BFme%20orientan%20para%20llegar?'"
+                           target="_blank" rel="noopener noreferrer" class="btn-pill-cart" style="width: 100%; height: 44px; justify-content: center;">
+                            <i class="fa-brands fa-whatsapp" style="color: #15803d; font-size: 1.05rem;"></i>
+                            <span>Escribir al WhatsApp 953 220 851</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="route-card reveal-on-scroll">
+                    <div class="map-embed-wrapper">
+                        <iframe
+                            title="Mapa de ubicación Juegos Extremos Los Vegas en Huayobamba, San Marcos, Cajamarca"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.3213557058875!2d-78.18947452525241!3d-7.317751992690265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91b217006c1e9be7%3A0xac9e0c60018d6f1a!2sJuegos%20Extremos%20Los%20Vegas!5e0!3m2!1ses!2spe!4v1795215632212!5m2!1ses!2spe"
+                            width="100%"
+                            height="450"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="strict-origin-when-cross-origin">
+                        </iframe>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.84rem;">
+                        <span style="color: var(--ink-body); font-weight: 600;">
+                            <i class="fa-solid fa-square-parking" style="color: var(--brand-green);"></i> Cochera gratuita dentro del local
+                        </span>
+                        <a href="https://maps.app.goo.gl/dSNxVNfeqGZo9h356" target="_blank" rel="noopener noreferrer"
+                           style="color: var(--brand-red); font-weight: 700;">
+                            Abrir en App de Maps <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         10. COMPROMISO DE SEGURIDAD Y PREGUNTAS FRECUENTES (#seguridad)
+         ====================================================================== -->
+    <section id="seguridad" class="editorial-section">
+        <div class="container">
+            <div class="editorial-header reveal-on-scroll">
+                <span class="editorial-kicker">Tranquilidad y Confianza</span>
+                <h2 class="editorial-heading">
+                    Una experiencia cuidada <span class="serif-italic">en cada detalle</span>
+                </h2>
+                <p class="editorial-subtitle">
+                    Para que tú y tu familia disfruten con total tranquilidad del Puente Extremo, la Tirolesa y el Campo de Voleyball.
+                </p>
+            </div>
+
+            <div class="trust-pillars-grid">
+                <div class="trust-card reveal-on-scroll">
+                    <div class="trust-icon-circle"><i class="fa-solid fa-helmet-safety"></i></div>
+                    <h3 style="font-size: 1rem; font-weight: 800; margin-bottom: 0.35rem;">Equipo de Protección</h3>
+                    <p style="font-size: 0.82rem; color: var(--ink-body);">
+                        Arnés de seguridad, casco protector y guantes cómodos para cada visitante.
+                    </p>
+                </div>
+
+                <div class="trust-card reveal-on-scroll">
+                    <div class="trust-icon-circle"><i class="fa-solid fa-user-check"></i></div>
+                    <h3 style="font-size: 1rem; font-weight: 800; margin-bottom: 0.35rem;">Guías Siempre Contigo</h3>
+                    <p style="font-size: 0.82rem; color: var(--ink-body);">
+                        Nuestro equipo coloca y verifica tu indumentaria antes de cada salida.
+                    </p>
+                </div>
+
+                <div class="trust-card reveal-on-scroll">
+                    <div class="trust-icon-circle"><i class="fa-solid fa-volleyball"></i></div>
+                    <h3 style="font-size: 1rem; font-weight: 800; margin-bottom: 0.35rem;">Campo de Voleyball</h3>
+                    <p style="font-size: 0.82rem; color: var(--ink-body);">
+                        Cancha de Voleyball al aire libre, Torre Mirador de 3 pisos y glorietas.
+                    </p>
+                </div>
+
+                <div class="trust-card reveal-on-scroll">
+                    <div class="trust-icon-circle"><i class="fa-solid fa-people-roof"></i></div>
+                    <h3 style="font-size: 1rem; font-weight: 800; margin-bottom: 0.35rem;">Ambiente Familiar</h3>
+                    <p style="font-size: 0.82rem; color: var(--ink-body);">
+                        Amplia explanada verde y estacionamiento privado para venir en grupo.
+                    </p>
+                </div>
+            </div>
+
+            <div class="editorial-header reveal-on-scroll" style="margin-bottom: 1.6rem;">
+                <h3 class="editorial-heading" style="font-size: 1.85rem;">Preguntas Frecuentes</h3>
+            </div>
+
+            <div class="faq-list reveal-on-scroll">
+                <div class="faq-item open">
+                    <button type="button" class="faq-question">
+                        <span>¿Cuál es el precio de las atracciones y el horario de atención?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        El Puente Extremo y la Tirolesa tienen un costo de <strong>S/ 10.00</strong> cada uno, el uso del <strong>Campo de Voleyball es totalmente GRATIS</strong> y atendemos de <strong>10:30 AM hasta las 6:30 PM</strong> en el Centro Poblado de Huayobamba, San Marcos.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button type="button" class="faq-question">
+                        <span>¿Cuentan con Campo de Voleyball para jugar con amigos o familia?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        ¡Sí! Contamos con nuestro <strong>Campo de Voleyball de uso GRATIS</strong> dentro de nuestra explanada en Huayobamba, ideal para armar partidos entre amigos, familias o promociones escolares.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button type="button" class="faq-question">
+                        <span>¿Qué ropa y calzado me recomiendan llevar?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Te sugerimos venir con <strong>zapatillas cómodas y bien sujetas</strong>, ropa deportiva para los juegos extremos y el voleyball, gorra y bloqueador solar.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button type="button" class="faq-question">
+                        <span>¿Cómo reservo y qué medios de pago aceptan?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Puedes armar tu reserva aquí mismo desde tu celular y enviarla a nuestro WhatsApp oficial <strong>953 220 851</strong>. Aceptamos Efectivo, Yape, Plin y transferencias.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         11. FOOTER EDITORIAL SIMÉTRICO
+         ====================================================================== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="brand-identity" style="margin-bottom: 0.9rem;">
+                        <img th:src="@{/images/logo-los-vegas.jpg}" alt="Logo Oficial Juegos Extremos Los Vegas" class="brand-avatar">
+                        <div style="text-align: left;">
+                            <span class="brand-name-main" style="color: #fff; font-size: 1.05rem;">Juegos Extremos "Los Vegas"</span>
+                            <span class="brand-name-loc" style="color: var(--brand-gold-light);">¡Vive la aventura, siente la adrenalina!</span>
+                        </div>
+                    </div>
+                    <p style="max-width: 400px; margin: 0 auto; line-height: 1.65;">
+                        Puente Extremo, Tirolesa, Campo de Voleyball y Torre Mirador en el Centro Poblado de Huayobamba, distrito de Pedro Gálvez, provincia de San Marcos (Cajamarca).
+                    </p>
+                </div>
+
+                <div>
+                    <strong style="color: #ffffff; display: block; margin-bottom: 0.75rem; font-size: 0.94rem;">Navegación</strong>
+                    <ul style="display: flex; flex-direction: column; gap: 0.45rem;">
+                        <li><a href="#juegos">Puente, Tirolesa y Voleyball</a></li>
+                        <li><a href="#galeria">Fotos Reales del Lugar</a></li>
+                        <li><a href="#combos">Pases y Combos</a></li>
+                        <li><a href="#simulador">Simulador de Reserva</a></li>
+                        <li><a href="#ubicacion">Ubicación en Google Maps</a></li>
+                        <li><a th:href="@{/admin}"><i class="fa-solid fa-lock"></i> Acceso Administración</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <strong style="color: #ffffff; display: block; margin-bottom: 0.75rem; font-size: 0.94rem;">Contacto y Horario</strong>
+                    <p><i class="fa-solid fa-location-dot" style="color: var(--brand-gold-light);"></i> C.P. Huayobamba, San Marcos – Cajamarca</p>
+                    <p style="margin-top: 0.45rem;">
+                        <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+                        WhatsApp Oficial: <strong style="color: #fff;" th:text="${telefonoDisplay}">953 220 851</strong>
+                    </p>
+                    <p style="margin-top: 0.45rem;">
+                        <i class="fa-regular fa-clock" style="color: var(--brand-gold-light);"></i>
+                        Horario: <strong style="color: #fff;" th:text="${configParque.horarioAtencion}">10:30 AM a 6:30 PM</strong>
+                    </p>
+                    <p style="margin-top: 0.65rem;">
+                        <a href="https://maps.app.goo.gl/dSNxVNfeqGZo9h356" target="_blank" rel="noopener noreferrer"
+                           style="color: var(--brand-gold-light); font-weight: 700;">
+                            <i class="fa-solid fa-map-pin"></i> Abrir ubicación en Google Maps
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem; font-size: 0.78rem;">
+                <span>&copy; 2026 Juegos Extremos "Los Vegas" – Huayobamba, San Marcos.</span>
+                <span>WhatsApp: 953 220 851</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ======================================================================
+         12. BARRA FLOTANTE INFERIOR MOBILE-FIRST (ANDROID & iOS)
+         ====================================================================== -->
+    <div id="mobileStickyCart" class="mobile-sticky-cart">
+        <div class="mobile-sticky-inner">
+            <div>
+                <span id="stickyItemCount" class="sticky-summary-label">0 experiencias elegidas</span>
+                <span id="stickyTotalPrice" class="sticky-summary-price">S/ 0.00</span>
+            </div>
+            <a href="#simulador" class="btn-editorial-primary" style="width: auto; padding: 0.6rem 1.15rem; font-size: 0.82rem;">
+                <span>Reservar</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         13. MODAL DE CONFIRMACIÓN DE PRE-RESERVA (CÓDIGO LV-...)
+         ====================================================================== -->
+    <div id="confirmacionModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card">
+            <div style="width: 56px; height: 56px; border-radius: 50%; background: #dcfce7; color: #15803d; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 0.85rem;">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 id="modalTitle" style="font-size: 1.55rem; font-weight: 800;">
+                ¡Reserva Lista para Enviar!
+            </h3>
+            <p style="font-size: 0.86rem; color: var(--ink-body); margin-top: 0.25rem;">
+                Código de registro para tu visita a Huayobamba:
+            </p>
+            <div id="modalCodigoReserva" class="modal-code-box">LV-20261117-001</div>
+            <p style="font-size: 0.92rem; color: var(--ink-dark); margin-bottom: 1.15rem;">
+                Total estimado: <strong id="modalMontoTotal" style="color: var(--brand-red);">S/ 0.00</strong>
+            </p>
+            <a id="modalWhatsappLink" href="#" target="_blank" rel="noopener noreferrer" class="btn-submit-whatsapp" style="margin-bottom: 0.7rem;">
+                <i class="fa-brands fa-whatsapp fa-lg"></i> Enviar al WhatsApp (953 220 851)
+            </a>
+            <button type="button" id="btnCloseModal" class="btn-pill-cart" style="width: 100%; height: 42px; justify-content: center; cursor: pointer;">
+                Cerrar ventana
+            </button>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         14. VISOR LIGHTBOX PANTALLA COMPLETA PARA FOTOS REALES
+         ====================================================================== -->
+    <div id="photoLightbox" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Visor de fotografías">
+        <div style="max-width: 960px; width: 100%; text-align: center; position: relative;">
+            <button type="button" id="btnCloseLightbox"
+                    style="position: absolute; top: -44px; right: 0; background: #fff; color: #161917; border: none; width: 38px; height: 38px; border-radius: 50%; font-size: 1.1rem; cursor: pointer;">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img id="lightboxImage" src="" alt="Fotografía ampliada del parque"
+                 style="width: 100%; max-height: 76vh; object-fit: contain; border-radius: 16px; box-shadow: 0 25px 60px rgba(0,0,0,0.6);">
+            <p id="lightboxCaption" style="color: #fff; font-size: 0.9rem; font-weight: 600; margin-top: 0.75rem;"></p>
+        </div>
+    </div>
+
+    <!-- Script interactivo v6.0 -->
+    <script th:src="@{/js/app.js(v='6.0')}"></script>
+</body>
+</html>
