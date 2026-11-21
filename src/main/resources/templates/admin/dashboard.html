@@ -379,6 +379,41 @@
             font-size: 0.84rem;
             color: #161917;
         }
+        .status-select-control {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+            padding: 0.55rem 2.2rem 0.55rem 0.75rem !important;
+            font-size: 0.84rem !important;
+            font-weight: 700;
+            background-color: #ffffff;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23161917'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.65rem center;
+            background-size: 1.05rem;
+        }
+        .btn-confirm-quick {
+            width: 100%;
+            border: none;
+            border-radius: 14px;
+            padding: 0.72rem 1rem;
+            background: #1b6b4a;
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 0.86rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+        .btn-confirm-quick:hover {
+            background: #145339;
+            transform: translateY(-1px);
+        }
         .card-actions-3col {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -750,10 +785,20 @@
                                 th:text="'S/ ' + ${#numbers.formatDecimal(res.montoTotalSoles, 1, 2)}">S/ 0.00</strong>
                     </div>
 
+                    <form th:if="${res.estado == 'PENDIENTE_WHATSAPP'}"
+                          th:action="@{/admin/reservas/{id}/estado(id=${res.id})}" method="post">
+                        <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <input type="hidden" name="estado" value="CONFIRMADA" />
+                        <button type="submit" class="btn-confirm-quick">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Confirmar Reserva</span>
+                        </button>
+                    </form>
+
                     <form th:action="@{/admin/reservas/{id}/estado(id=${res.id})}" method="post"
                           style="display: grid; grid-template-columns: 1fr auto; gap: 0.5rem;">
                         <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                        <select name="estado" class="form-control" style="padding: 0.55rem 0.75rem; font-size: 0.84rem;">
+                        <select name="estado" class="form-control status-select-control" aria-label="Cambiar estado de la reserva">
                             <option value="PENDIENTE_WHATSAPP" th:selected="${res.estado == 'PENDIENTE_WHATSAPP'}">Pendiente WhatsApp</option>
                             <option value="CONFIRMADA" th:selected="${res.estado == 'CONFIRMADA'}">Confirmada</option>
                             <option value="COMPLETADA" th:selected="${res.estado == 'COMPLETADA'}">Completada</option>
@@ -764,7 +809,7 @@
                         </button>
                     </form>
 
-                    <a th:href="'https://wa.me/51' + ${#strings.replace(res.telefonoCliente, ' ', '')} + '?text=Hola%20' + ${res.nombreCliente} + ',%20te%20saludamos%20de%20Juegos%20Extremos%20Los%20Vegas%20(Huayobamba)%20para%20confirmar%20tu%20reserva%20' + ${res.id}"
+                    <a th:href="'https://api.whatsapp.com/send?phone=51' + ${#strings.replace(res.telefonoCliente, ' ', '')} + '&text=Hola%20' + ${res.nombreCliente} + ',%20te%20saludamos%20de%20Juegos%20Extremos%20Los%20Vegas%20(Huayobamba)%20para%20confirmar%20tu%20reserva%20' + ${res.id}"
                        target="_blank" rel="noopener noreferrer"
                        class="btn-submit-whatsapp" style="padding: 0.72rem 1rem; font-size: 0.84rem;">
                         <i class="fa-brands fa-whatsapp"></i>
